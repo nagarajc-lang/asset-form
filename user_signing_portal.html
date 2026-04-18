@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Declaration — Please Sign</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f2f5;color:#1a1a2e;padding:24px 16px}
+  .page{max-width:860px;margin:0 auto;background:#fff;border-radius:10px;box-shadow:0 2px 16px rgba(0,0,0,.1);overflow:hidden}
+  /* --- Header --- */
+  .hdr{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:28px 36px;display:flex;justify-content:space-between;align-items:flex-start}
+  .hdr .left .co{font-size:21px;font-weight:700}
+  .hdr .left .addr{font-size:12px;opacity:.8;margin-top:3px}
+  .hdr .right{text-align:right;font-size:12px;opacity:.85}
+  .hdr .right .ft{font-size:15px;font-weight:700;margin-bottom:6px;text-transform:uppercase;letter-spacing:.8px}
+  /* --- Document meta bar --- */
+  .meta-bar{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:2px solid #e8eaf6;background:#f8f9ff}
+  .meta-cell{padding:12px 18px;border-right:1px solid #e0e4f0}
+  .meta-cell:last-child{border-right:none}
+  .meta-cell .lbl{font-size:10px;font-weight:700;color:#7986cb;text-transform:uppercase;letter-spacing:.5px}
+  .meta-cell .val{font-size:13px;font-weight:600;color:#1a1a2e;margin-top:3px}
+  /* --- Employee section --- */
+  .emp-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;padding:22px 36px;border-bottom:1px solid #eef0f8;background:#fafbff}
+  .ef .lbl{font-size:11px;font-weight:700;color:#7986cb;text-transform:uppercase;letter-spacing:.4px}
+  .ef .val{font-size:14px;color:#1a1a2e;margin-top:3px;font-weight:600}
+  /* --- Section heading --- */
+  .sec-hdr{font-size:11px;font-weight:700;color:#3949ab;text-transform:uppercase;letter-spacing:.8px;padding:16px 36px 8px;background:#fff;border-bottom:1px solid #eef0f8}
+  /* --- Asset table --- */
+  .table-wrap{padding:0 36px 20px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+  thead tr{background:#e8eaf6}
+  th{padding:9px 10px;text-align:left;font-size:10px;font-weight:700;color:#3949ab;text-transform:uppercase;letter-spacing:.4px;border:1px solid #c5cae9;white-space:nowrap}
+  td{padding:9px 10px;border:1px solid #e0e4f0;vertical-align:top}
+  tr:nth-child(even) td{background:#f9faff}
+  td.tag{font-family:monospace;font-weight:700;font-size:12px;color:#1a237e}
+  td.qty{text-align:center;font-weight:700}
+  /* --- Terms --- */
+  .terms-wrap{padding:20px 36px;border-bottom:1px solid #eef0f8}
+  .terms-box{background:#f8f9ff;border:1px solid #c5cae9;border-radius:8px;padding:20px 22px;max-height:260px;overflow-y:auto}
+  .terms-box ol{padding-left:20px}
+  .terms-box li{font-size:13px;color:#37474f;line-height:1.7;margin-bottom:8px}
+  .accept-row{display:flex;align-items:center;gap:10px;margin-top:16px}
+  .accept-row input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#1a237e}
+  .accept-row label{font-size:14px;font-weight:600;color:#1a237e;cursor:pointer}
+  /* --- Signature pad --- */
+  .sig-wrap{padding:20px 36px;border-bottom:1px solid #eef0f8}
+  .sig-label{font-size:12px;font-weight:600;color:#546e7a;margin-bottom:8px}
+  .pad-container{position:relative;display:inline-block;width:100%;max-width:500px}
+  canvas#sigpad{border:2px dashed #9fa8da;border-radius:8px;background:#fafbff;cursor:crosshair;display:block;width:100%;touch-action:none}
+  .pad-actions{display:flex;gap:10px;margin-top:8px}
+  .btn-clear{padding:7px 16px;background:#fff;border:1px solid #c5cae9;border-radius:6px;font-size:12px;font-weight:600;color:#5c6bc0;cursor:pointer}
+  .btn-clear:hover{background:#e8eaf6}
+  .sig-note{font-size:11px;color:#90a4ae;margin-top:6px}
+  /* --- Submit section --- */
+  .submit-wrap{padding:24px 36px;background:#f8f9ff}
+  .sign-date{font-size:13px;color:#546e7a;margin-bottom:16px}
+  .submit-btn{padding:14px 36px;background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:opacity .2s;width:100%}
+  .submit-btn:hover{opacity:.9}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed}
+  .msg{margin-top:14px;padding:12px 16px;border-radius:6px;font-size:13px;display:none}
+  .msg.success{background:#e8f5e9;color:#2e7d32;border-left:4px solid #43a047;display:block}
+  .msg.error{background:#ffebee;color:#c62828;border-left:4px solid #e53935;display:block}
+  .signed-stamp{background:#e8f5e9;border:2px solid #43a047;border-radius:8px;padding:16px 20px;text-align:center;display:none}
+  .signed-stamp .icon{font-size:28px}
+  .signed-stamp h3{color:#2e7d32;margin-top:6px}
+  .signed-stamp p{font-size:13px;color:#388e3c;margin-top:4px}
+  @media(max-width:640px){
+    .meta-bar{grid-template-columns:1fr 1fr}
+    .emp-grid{grid-template-columns:1fr 1fr}
+    .hdr{flex-direction:column;gap:12px}
+    .hdr .right{text-align:left}
+    .terms-wrap,.sig-wrap,.submit-wrap,.table-wrap,.emp-grid{padding-left:18px;padding-right:18px}
+  }
+</style>
+</head>
+<body>
+<div class="page" id="main-page">
+  <div class="hdr">
+    <div class="left">
+      <div class="co">PlaySimple Games Limited</div>
+      <div class="addr">123 Tech Park, Bengaluru, Karnataka — 560100</div>
+    </div>
+    <div class="right">
+      <div class="ft">Asset Declaration Form</div>
+      <div id="hdr-formno">Form #: —</div>
+      <div id="hdr-date">Date: —</div>
+      <div id="hdr-cat">Category: —</div>
+    </div>
+  </div>
+
+  <div class="meta-bar">
+    <div class="meta-cell"><div class="lbl">Form Number</div><div class="val" id="m-formno">—</div></div>
+    <div class="meta-cell"><div class="lbl">Issue Date</div><div class="val" id="m-date">—</div></div>
+    <div class="meta-cell"><div class="lbl">Asset Category</div><div class="val" id="m-cat">—</div></div>
+    <div class="meta-cell"><div class="lbl">Department</div><div class="val" id="m-dept">—</div></div>
+  </div>
+
+  <div class="emp-grid">
+    <div class="ef"><div class="lbl">Employee Name</div><div class="val" id="e-name">—</div></div>
+    <div class="ef"><div class="lbl">Designation</div><div class="val" id="e-desig">—</div></div>
+    <div class="ef"><div class="lbl">Employee ID</div><div class="val" id="e-id">—</div></div>
+  </div>
+
+  <div class="sec-hdr">Asset Details</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Asset Tag #</th><th>Description</th><th>Serial Number</th>
+          <th>Model Number</th><th>Make</th><th>Invoice #</th><th>Qty</th><th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody id="assets-tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="sec-hdr">Declaration &amp; Terms</div>
+  <div class="terms-wrap">
+    <div class="terms-box">
+      <p style="font-size:13px;color:#37474f;margin-bottom:12px">I, the undersigned employee of <strong>PlaySimple Games Limited</strong>, hereby acknowledge receipt of the asset(s) listed above and agree to the following terms and conditions:</p>
+      <ol>
+        <li>I confirm that I have received the above-mentioned asset(s) in good and working condition. Any damage or defect noted at the time of receipt has been communicated to the IT department.</li>
+        <li>The asset(s) are company property and are issued to me solely for legitimate business purposes. I shall not use them for any personal, illegal, or unauthorized activities.</li>
+        <li>I am responsible for the safekeeping and proper use of the asset(s). I shall take reasonable care to prevent damage, loss, or theft. Any incident must be reported to IT within 24 hours.</li>
+        <li>I shall not transfer, lend, sublet, or otherwise make available the asset(s) to any third party or non-authorized person without prior written consent from the IT department.</li>
+        <li>Upon resignation, termination, or any other separation from service, I agree to return all company asset(s) in good working condition on or before my last working day. Normal wear and tear is excepted.</li>
+        <li>Any damage, loss, or theft of the asset due to negligence, misuse, or failure to report may result in recovery of the cost (in full or part) from my final settlement or salary, as determined by the company.</li>
+        <li>The company reserves the right to audit, monitor, and inspect the asset(s) and their usage at any time, in accordance with company policy and applicable law.</li>
+        <li>This declaration is legally binding and forms part of my employment agreement. Violation of any of the above terms may lead to disciplinary action, up to and including termination of employment.</li>
+      </ol>
+    </div>
+    <div class="accept-row">
+      <input type="checkbox" id="terms-check">
+      <label for="terms-check">I have read, understood, and agree to all terms and conditions listed above.</label>
+    </div>
+  </div>
+
+  <div class="sec-hdr">Digital Signature</div>
+  <div class="sig-wrap">
+    <div class="sig-label">Please draw your signature below using mouse or touch:</div>
+    <div class="pad-container">
+      <canvas id="sigpad" width="700" height="160"></canvas>
+    </div>
+    <div class="pad-actions">
+      <button class="btn-clear" onclick="clearSig()">✕ Clear</button>
+    </div>
+    <div class="sig-note">Draw inside the box above. Click "Clear" to redo.</div>
+  </div>
+
+  <div class="submit-wrap">
+    <div class="sign-date">Signing on: <strong id="sign-date-display">—</strong></div>
+    <button class="submit-btn" id="submit-btn" onclick="submitSigned()">Submit Signed Declaration</button>
+    <div class="msg" id="msg"></div>
+    <div class="signed-stamp" id="signed-stamp">
+      <div class="icon">✅</div>
+      <h3>Declaration Signed Successfully</h3>
+      <p id="stamp-text">Your signed declaration has been recorded.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── SIGNATURE PAD ───────────────────────────────────────────
+const canvas=document.getElementById('sigpad');
+const ctx=canvas.getContext('2d');
+let drawing=false,hasSig=false,pts=[];
+ctx.strokeStyle='#1a237e';ctx.lineWidth=2.5;ctx.lineCap='round';ctx.lineJoin='round';
+
+function pos(e){
+  const r=canvas.getBoundingClientRect();
+  const scx=canvas.width/r.width,scy=canvas.height/r.height;
+  if(e.touches) return{x:(e.touches[0].clientX-r.left)*scx,y:(e.touches[0].clientY-r.top)*scy};
+  return{x:(e.clientX-r.left)*scx,y:(e.clientY-r.top)*scy};
+}
+canvas.addEventListener('mousedown',e=>{drawing=true;hasSig=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y)});
+canvas.addEventListener('mousemove',e=>{if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke()});
+canvas.addEventListener('mouseup',()=>drawing=false);
+canvas.addEventListener('mouseleave',()=>drawing=false);
+canvas.addEventListener('touchstart',e=>{e.preventDefault();drawing=true;hasSig=true;const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y)},{passive:false});
+canvas.addEventListener('touchmove',e=>{e.preventDefault();if(!drawing)return;const p=pos(e);ctx.lineTo(p.x,p.y);ctx.stroke()},{passive:false});
+canvas.addEventListener('touchend',()=>drawing=false);
+function clearSig(){ctx.clearRect(0,0,canvas.width,canvas.height);hasSig=false;}
+
+// ─── LOAD FORM DATA FROM URL PARAMS ─────────────────────────
+function qp(k){return new URLSearchParams(location.search).get(k)||''}
+const formData={
+  form_number: qp('fn')||'PSG-2024-001',
+  issue_date:  qp('dt')||new Date().toISOString().slice(0,10),
+  category:    qp('cat')||'Laptop',
+  emp_name:    qp('name')||'Employee Name',
+  designation: qp('desig')||'—',
+  department:  qp('dept')||'—',
+  emp_id:      qp('eid')||'—',
+  emp_email:   qp('email')||'',
+  assets:      []
+};
+
+try{formData.assets=JSON.parse(decodeURIComponent(qp('assets')||'[]'));}catch(e){}
+
+// Populate UI
+document.getElementById('hdr-formno').textContent='Form #: '+formData.form_number;
+document.getElementById('hdr-date').textContent='Date: '+formData.issue_date;
+document.getElementById('hdr-cat').textContent='Category: '+formData.category;
+document.getElementById('m-formno').textContent=formData.form_number;
+document.getElementById('m-date').textContent=formData.issue_date;
+document.getElementById('m-cat').textContent=formData.category;
+document.getElementById('m-dept').textContent=formData.department;
+document.getElementById('e-name').textContent=formData.emp_name;
+document.getElementById('e-desig').textContent=formData.designation;
+document.getElementById('e-id').textContent=formData.emp_id;
+
+const now=new Date();
+document.getElementById('sign-date-display').textContent=now.toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+const tbody=document.getElementById('assets-tbody');
+(formData.assets.length?formData.assets:[{tag:'TAG-001',desc:'Dell Latitude 5420',serial:'SN-DEMO-001',model:'Latitude 5420',make:'Dell',invoice:'INV-2024-001',qty:'1',remarks:'Good condition'}]).forEach(a=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="tag">${a.tag}</td><td>${a.desc}</td><td>${a.serial}</td><td>${a.model}</td><td>${a.make}</td><td>${a.invoice}</td><td class="qty">${a.qty}</td><td>${a.remarks||'—'}</td>`;
+  tbody.appendChild(tr);
+});
+
+// ─── SUBMIT ───────────────────────────────────────────────────
+const APPS_SCRIPT_URL='https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+
+async function submitSigned(){
+  const msgEl=document.getElementById('msg');
+  msgEl.className='msg';
+  if(!document.getElementById('terms-check').checked){
+    msgEl.className='msg error';msgEl.textContent='Please accept the terms and conditions before signing.';return;
+  }
+  if(!hasSig){
+    msgEl.className='msg error';msgEl.textContent='Please draw your signature before submitting.';return;
+  }
+  const sigData=canvas.toDataURL('image/png');
+  const btn=document.getElementById('submit-btn');
+  btn.disabled=true;btn.textContent='Submitting…';
+  const payload={
+    action:'signed',
+    form_number:formData.form_number,
+    emp_name:formData.emp_name,
+    emp_email:formData.emp_email,
+    signature:sigData,
+    signed_at:new Date().toISOString(),
+    assets:formData.assets
+  };
+  try{
+    const res=await fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify(payload)});
+    const json=await res.json();
+    if(json.success){
+      btn.style.display='none';
+      document.getElementById('signed-stamp').style.display='block';
+      document.getElementById('stamp-text').textContent='Signed on '+new Date().toLocaleString('en-IN')+'. A confirmation email has been sent to '+formData.emp_email+'.';
+    }else throw new Error(json.error);
+  }catch(e){
+    msgEl.className='msg error';
+    msgEl.textContent='Submission error: '+e.message;
+    btn.disabled=false;btn.textContent='Submit Signed Declaration';
+  }
+}
+</script>
+</body>
+</html>
