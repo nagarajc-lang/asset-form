@@ -8,64 +8,49 @@
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Arial,sans-serif;background:#eef0f8;color:#1a1a2e;min-height:100vh;padding:28px 16px}
   .page{max-width:900px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(26,35,126,.12);overflow:hidden}
-
-  /* Header */
   .header{background:linear-gradient(135deg,#1a237e 0%,#283593 60%,#3949ab 100%);color:#fff;padding:30px 40px;position:relative;overflow:hidden}
   .header::after{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05)}
-  .header .company{font-size:22px;font-weight:700;letter-spacing:.3px}
+  .header .company{font-size:22px;font-weight:700}
   .header .address{font-size:12px;opacity:.75;margin-top:4px}
   .header .form-title{font-size:14px;font-weight:600;margin-top:18px;text-transform:uppercase;letter-spacing:1.2px;opacity:.9;background:rgba(255,255,255,.12);display:inline-block;padding:6px 14px;border-radius:20px}
-
-  /* Form meta bar */
   .form-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:20px 40px;background:#f8f9ff;border-bottom:1px solid #e0e4f0}
   .meta-field label{font-size:10px;font-weight:700;color:#5c6bc0;text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:5px}
-  .meta-field input,.meta-field select{width:100%;border:1.5px solid #c5cae9;border-radius:7px;padding:9px 11px;font-size:13px;color:#1a1a2e;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;font-family:inherit}
+  .meta-field input,.meta-field select{width:100%;border:1.5px solid #c5cae9;border-radius:7px;padding:9px 11px;font-size:13px;color:#1a1a2e;background:#fff;outline:none;transition:border-color .2s;font-family:inherit}
   .meta-field input:focus,.meta-field select:focus{border-color:#3949ab;box-shadow:0 0 0 3px rgba(57,73,171,.1)}
-
-  /* Sections */
   .section{padding:26px 40px;border-bottom:1px solid #eef0f8}
   .section-title{font-size:11px;font-weight:700;color:#3949ab;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;padding-bottom:8px;border-bottom:2px solid #e8eaf6;display:flex;align-items:center;gap:8px}
   .section-title::before{content:'';display:inline-block;width:4px;height:14px;background:#3949ab;border-radius:2px}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
-  .field{margin-bottom:0}
   .field label{font-size:11px;font-weight:600;color:#546e7a;display:block;margin-bottom:5px}
-  .field input,.field select,.field textarea{width:100%;border:1.5px solid #cfd8dc;border-radius:7px;padding:9px 12px;font-size:13px;color:#1a1a2e;background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;font-family:inherit}
+  .field input,.field select,.field textarea{width:100%;border:1.5px solid #cfd8dc;border-radius:7px;padding:9px 12px;font-size:13px;color:#1a1a2e;background:#fff;outline:none;transition:border-color .2s;font-family:inherit}
   .field input:focus,.field select:focus,.field textarea:focus{border-color:#3949ab;box-shadow:0 0 0 3px rgba(57,73,171,.08)}
-  .required-star{color:#e53935;margin-left:2px}
-
-  /* Asset table */
+  .req{color:#e53935;margin-left:2px}
   .table-section{padding:26px 40px;border-bottom:1px solid #eef0f8}
   .table-scroll{overflow-x:auto}
   table{width:100%;border-collapse:collapse;font-size:13px;min-width:700px}
   thead tr{background:#e8eaf6}
-  thead th{padding:10px 10px;text-align:left;font-size:10px;font-weight:700;color:#3949ab;text-transform:uppercase;letter-spacing:.4px;border:1px solid #c5cae9;white-space:nowrap}
-  tbody tr td{padding:3px 3px;border:1px solid #e0e4f0}
+  thead th{padding:10px;text-align:left;font-size:10px;font-weight:700;color:#3949ab;text-transform:uppercase;letter-spacing:.4px;border:1px solid #c5cae9;white-space:nowrap}
+  tbody tr td{padding:3px;border:1px solid #e0e4f0}
   tbody tr:nth-child(even){background:#fafbff}
   tbody tr:hover{background:#f0f4ff}
   tbody td input{width:100%;border:none;padding:7px 8px;font-size:13px;background:transparent;outline:none;color:#1a1a2e;font-family:inherit}
   tbody td input:focus{background:#e8f0ff;border-radius:4px}
-  tbody td.action-cell{text-align:center;vertical-align:middle}
-  .del-row{background:none;border:none;color:#ef9a9a;cursor:pointer;font-size:16px;padding:4px 8px;border-radius:4px;transition:color .2s,background .2s}
+  tbody td.ac{text-align:center;vertical-align:middle}
+  .del-row{background:none;border:none;color:#ef9a9a;cursor:pointer;font-size:16px;padding:4px 8px;border-radius:4px}
   .del-row:hover{color:#c62828;background:#ffebee}
-  .add-row-btn{margin-top:12px;padding:8px 18px;background:#e8eaf6;border:1.5px solid #c5cae9;border-radius:7px;font-size:12px;font-weight:600;color:#3949ab;cursor:pointer;transition:background .2s,border-color .2s;display:inline-flex;align-items:center;gap:6px}
-  .add-row-btn:hover{background:#c5cae9;border-color:#9fa8da}
-
-  /* Footer */
+  .add-row-btn{margin-top:12px;padding:8px 18px;background:#e8eaf6;border:1.5px solid #c5cae9;border-radius:7px;font-size:12px;font-weight:600;color:#3949ab;cursor:pointer}
+  .add-row-btn:hover{background:#c5cae9}
   .footer-section{padding:28px 40px;background:#f8f9ff}
-  .submit-btn{width:100%;padding:15px;background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:opacity .2s,transform .1s;display:flex;align-items:center;justify-content:center;gap:10px}
-  .submit-btn:hover{opacity:.92;transform:translateY(-1px)}
-  .submit-btn:active{transform:translateY(0)}
-  .submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .submit-btn{width:100%;padding:15px;background:linear-gradient(135deg,#1a237e,#3949ab);color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:opacity .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+  .submit-btn:hover{opacity:.92}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed}
   .msg{margin-top:16px;padding:14px 18px;border-radius:8px;font-size:13px;display:none;font-weight:500}
   .msg.success{background:#e8f5e9;color:#2e7d32;border-left:4px solid #43a047;display:block}
   .msg.error{background:#ffebee;color:#c62828;border-left:4px solid #e53935;display:block}
-
   .spinner{width:18px;height:18px;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none}
   @keyframes spin{to{transform:rotate(360deg)}}
-
   @media(max-width:640px){
-    .form-meta,.two-col,.three-col{grid-template-columns:1fr}
+    .form-meta,.three-col{grid-template-columns:1fr}
     .header,.section,.table-section,.footer-section{padding-left:18px;padding-right:18px}
   }
 </style>
@@ -78,18 +63,17 @@
     <div class="form-title">Asset Declaration Form — IT Entry</div>
   </div>
 
-  <!-- Meta bar -->
   <div class="form-meta">
     <div class="meta-field">
-      <label>Date of Issue <span class="required-star">*</span></label>
+      <label>Date of Issue <span class="req">*</span></label>
       <input type="date" id="issue_date" required>
     </div>
     <div class="meta-field">
-      <label>Issue Form Number <span class="required-star">*</span></label>
+      <label>Issue Form Number <span class="req">*</span></label>
       <input type="text" id="form_number" placeholder="PSG-2024-001" required>
     </div>
     <div class="meta-field">
-      <label>Asset Category <span class="required-star">*</span></label>
+      <label>Asset Category <span class="req">*</span></label>
       <select id="category" required>
         <option value="">— Select Category —</option>
         <option>Laptop</option>
@@ -106,35 +90,27 @@
     </div>
   </div>
 
-  <!-- Employee Details -->
   <div class="section">
     <div class="section-title">Employee Details</div>
     <div class="three-col">
-      <div class="field"><label>Employee Name <span class="required-star">*</span></label><input type="text" id="emp_name" placeholder="Full name" required></div>
-      <div class="field"><label>Designation <span class="required-star">*</span></label><input type="text" id="designation" placeholder="e.g. Software Engineer"></div>
-      <div class="field"><label>Department <span class="required-star">*</span></label><input type="text" id="department" placeholder="e.g. Engineering"></div>
+      <div class="field"><label>Employee Name <span class="req">*</span></label><input type="text" id="emp_name" placeholder="Full name" required></div>
+      <div class="field"><label>Designation <span class="req">*</span></label><input type="text" id="designation" placeholder="e.g. Software Engineer"></div>
+      <div class="field"><label>Department <span class="req">*</span></label><input type="text" id="department" placeholder="e.g. Engineering"></div>
       <div class="field"><label>Employee ID</label><input type="text" id="emp_id" placeholder="PSG-0001"></div>
-      <div class="field"><label>Employee Email <span class="required-star">*</span></label><input type="email" id="emp_email" placeholder="employee@playsimple.in" required></div>
+      <div class="field"><label>Employee Email <span class="req">*</span></label><input type="email" id="emp_email" placeholder="employee@playsimple.in" required></div>
       <div class="field"><label>Location / Office</label><input type="text" id="location" placeholder="Bengaluru HQ"></div>
     </div>
   </div>
 
-  <!-- Asset Table -->
   <div class="table-section">
     <div class="section-title">Asset Details</div>
     <div class="table-scroll">
-      <table id="asset-table">
+      <table>
         <thead>
           <tr>
-            <th>Asset Tag #</th>
-            <th>Description</th>
-            <th>Serial Number</th>
-            <th>Model Number</th>
-            <th>Make / Brand</th>
-            <th>Invoice #</th>
-            <th style="width:52px">Qty</th>
-            <th>Remarks</th>
-            <th style="width:40px"></th>
+            <th>Asset Tag #</th><th>Description</th><th>Serial Number</th>
+            <th>Model Number</th><th>Make / Brand</th><th>Invoice #</th>
+            <th style="width:52px">Qty</th><th>Remarks</th><th style="width:40px"></th>
           </tr>
         </thead>
         <tbody id="asset-rows"></tbody>
@@ -143,15 +119,13 @@
     <button class="add-row-btn" onclick="addRow()">＋ Add Row</button>
   </div>
 
-  <!-- IT Notes -->
   <div class="section">
     <div class="section-title">Additional Notes (IT)</div>
     <div class="field">
-      <textarea id="it_notes" rows="3" placeholder="Any additional instructions, accessories included, known issues, special conditions…"></textarea>
+      <textarea id="it_notes" rows="3" placeholder="Any additional instructions, accessories included, known issues…"></textarea>
     </div>
   </div>
 
-  <!-- Submit -->
   <div class="footer-section">
     <button class="submit-btn" id="submit-btn" onclick="submitForm()">
       <span id="btn-text">Submit &amp; Send to Employee</span>
@@ -162,24 +136,18 @@
 </div>
 
 <script>
-// ── CONFIG ────────────────────────────────────────────────────
 const APPS_SCRIPT_URL = 'https://script.google.com/a/macros/playsimple.in/s/AKfycbzHSh1vbX6iajrGlQ13VC59jqdj_1S_h5hzSS5vIcGNO5kJAjO3RzLrRM4IGKy60NpNwA/exec';
 
-// ── INIT ──────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('issue_date').value = new Date().toISOString().slice(0, 10);
-  const year = new Date().getFullYear();
-  const seq  = String(Date.now()).slice(-4);
-  document.getElementById('form_number').value = `PSG-${year}-${seq}`;
-  addRow(); // Start with one empty row
+  document.getElementById('issue_date').value = new Date().toISOString().slice(0,10);
+  document.getElementById('form_number').value = 'PSG-' + new Date().getFullYear() + '-' + String(Date.now()).slice(-4);
+  addRow();
 });
 
-// ── ADD ASSET ROW ─────────────────────────────────────────────
 let rowCount = 0;
 function addRow() {
   rowCount++;
-  const tbody = document.getElementById('asset-rows');
-  const tr    = document.createElement('tr');
+  const tr = document.createElement('tr');
   tr.innerHTML = `
     <td><input type="text" placeholder="TAG-${String(rowCount).padStart(3,'0')}"></td>
     <td><input type="text" placeholder="e.g. Dell Latitude 5420"></td>
@@ -189,23 +157,21 @@ function addRow() {
     <td><input type="text" placeholder="INV-2024-001"></td>
     <td><input type="number" value="1" min="1" style="text-align:center"></td>
     <td><input type="text" placeholder="Good condition"></td>
-    <td class="action-cell"><button class="del-row" onclick="delRow(this)" title="Remove row">✕</button></td>`;
-  tbody.appendChild(tr);
+    <td class="ac"><button class="del-row" onclick="delRow(this)">✕</button></td>`;
+  document.getElementById('asset-rows').appendChild(tr);
 }
 
 function delRow(btn) {
-  const rows = document.querySelectorAll('#asset-rows tr');
-  if (rows.length <= 1) { alert('At least one asset row is required.'); return; }
+  if (document.querySelectorAll('#asset-rows tr').length <= 1) { alert('At least one asset row is required.'); return; }
   btn.closest('tr').remove();
 }
 
-// ── COLLECT DATA ──────────────────────────────────────────────
 function getAssets() {
   return Array.from(document.querySelectorAll('#asset-rows tr')).map(r => {
     const c = r.querySelectorAll('input');
-    return { tag: c[0].value.trim(), desc: c[1].value.trim(), serial: c[2].value.trim(),
-             model: c[3].value.trim(), make: c[4].value.trim(), invoice: c[5].value.trim(),
-             qty: c[6].value, remarks: c[7].value.trim() };
+    return { tag:c[0].value.trim(), desc:c[1].value.trim(), serial:c[2].value.trim(),
+             model:c[3].value.trim(), make:c[4].value.trim(), invoice:c[5].value.trim(),
+             qty:c[6].value, remarks:c[7].value.trim() };
   }).filter(a => a.tag || a.desc);
 }
 
@@ -234,52 +200,46 @@ function validate(p) {
   if (!p.designation) return 'Designation is required.';
   if (!p.department)  return 'Department is required.';
   if (!p.assets.length) return 'Add at least one asset row.';
-  const emailOK = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.emp_email);
-  if (!emailOK) return 'Please enter a valid email address.';
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(p.emp_email)) return 'Please enter a valid email address.';
   return null;
 }
 
-// ── SUBMIT ─────────────────────────────────────────────────────
 async function submitForm() {
-  const p      = collectPayload();
-  const err    = validate(p);
-  const msgEl  = document.getElementById('msg');
-  const btn    = document.getElementById('submit-btn');
-  const txtEl  = document.getElementById('btn-text');
-  const spin   = document.getElementById('spinner');
+  const p     = collectPayload();
+  const err   = validate(p);
+  const msgEl = document.getElementById('msg');
+  const btn   = document.getElementById('submit-btn');
+  const txtEl = document.getElementById('btn-text');
+  const spin  = document.getElementById('spinner');
   msgEl.className = 'msg';
 
   if (err) {
-    msgEl.className   = 'msg error';
+    msgEl.className = 'msg error';
     msgEl.textContent = err;
-    msgEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    msgEl.scrollIntoView({ behavior:'smooth', block:'nearest' });
     return;
   }
 
-  btn.disabled       = true;
-  txtEl.textContent  = 'Sending…';
+  btn.disabled = true;
+  txtEl.textContent = 'Sending…';
   spin.style.display = 'block';
 
   try {
-    // Use GET + no-cors to bypass CORS restriction on Google Workspace accounts
-    const url = APPS_SCRIPT_URL
-      + '?action=submit'
-      + '&data=' + encodeURIComponent(JSON.stringify(p));
-
+    // GET + no-cors bypasses CORS block on Google Workspace accounts
+    const url = APPS_SCRIPT_URL + '?action=submit&data=' + encodeURIComponent(JSON.stringify(p));
     await fetch(url, { method: 'GET', mode: 'no-cors' });
 
-    // no-cors returns opaque response (can't read it) — assume success if no throw
-    msgEl.className   = 'msg success';
-    msgEl.textContent = `✔ Form submitted! Email has been sent to ${p.emp_email}. Form ID: ${p.form_number}`;
-
-  } catch (e) {
-    msgEl.className   = 'msg error';
-    msgEl.textContent = `Submission failed: ${e.message}`;
+    // no-cors = opaque response, assume success if no throw
+    msgEl.className = 'msg success';
+    msgEl.textContent = '✔ Form submitted! Email is being sent to ' + p.emp_email + '. Form ID: ' + p.form_number;
+  } catch(e) {
+    msgEl.className = 'msg error';
+    msgEl.textContent = 'Submission failed: ' + e.message;
   } finally {
-    btn.disabled       = false;
-    txtEl.textContent  = 'Submit & Send to Employee';
+    btn.disabled = false;
+    txtEl.textContent = 'Submit & Send to Employee';
     spin.style.display = 'none';
-    msgEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    msgEl.scrollIntoView({ behavior:'smooth', block:'nearest' });
   }
 }
 </script>
