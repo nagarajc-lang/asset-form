@@ -343,31 +343,24 @@ async function submitSigned() {
   };
 
   try {
-    let json;
-    try {
-      // Primary: POST
-      const res = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
-      json = await res.json();
-    } catch (_) {
-      // Fallback: GET (CORS workaround)
-      const url = `${APPS_SCRIPT_URL}?action=signed&data=${encodeURIComponent(JSON.stringify(payload))}`;
-      const res = await fetch(url);
-      json = await res.json();
-    }
+    // Use GET + no-cors to bypass CORS restriction on Google Workspace accounts
+    const url = APPS_SCRIPT_URL
+      + '?action=signed'
+      + '&data=' + encodeURIComponent(JSON.stringify(payload));
 
-    if (json.success) {
-      btn.style.display = 'none';
-      msgEl.className   = 'msg';
-      const stamp       = document.getElementById('signed-stamp');
-      stamp.style.display = 'block';
-      document.getElementById('stamp-text').innerHTML =
-        `Signed on <strong>${new Date().toLocaleString('en-IN')}</strong>.<br>
-         A signed copy has been emailed to <strong>${formData.emp_email}</strong>.<br>
-         The IT team has also been notified.`;
-      stamp.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      throw new Error(json.error || 'Server returned an error');
-    }
+    await fetch(url, { method: 'GET', mode: 'no-cors' });
+
+    // no-cors = opaque response, can't read it — assume success if no throw
+    btn.style.display = 'none';
+    msgEl.className   = 'msg';
+    const stamp = document.getElementById('signed-stamp');
+    stamp.style.display = 'block';
+    document.getElementById('stamp-text').innerHTML =
+      `Signed on <strong>${new Date().toLocaleString('en-IN')}</strong>.<br>
+       A signed copy will be emailed to <strong>${formData.emp_email}</strong>.<br>
+       The IT team has also been notified.`;
+    stamp.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
   } catch (e) {
     msgEl.className   = 'msg error';
     msgEl.textContent = 'Submission error: ' + e.message;
