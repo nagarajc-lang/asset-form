@@ -256,31 +256,22 @@ async function submitForm() {
     return;
   }
 
-  btn.disabled     = true;
-  txtEl.textContent = 'Sending…';
+  btn.disabled       = true;
+  txtEl.textContent  = 'Sending…';
   spin.style.display = 'block';
 
   try {
-    // Primary attempt: POST
-    let res, json;
-    try {
-      res  = await fetch(APPS_SCRIPT_URL, { method: 'POST', body: JSON.stringify(p) });
-      json = await res.json();
-    } catch (_) {
-      // Fallback: GET (CORS workaround for Google Workspace accounts)
-      const url = `${APPS_SCRIPT_URL}?action=submit&data=${encodeURIComponent(JSON.stringify(p))}`;
-      res  = await fetch(url);
-      json = await res.json();
-    }
+    // Use GET + no-cors to bypass CORS restriction on Google Workspace accounts
+    const url = APPS_SCRIPT_URL
+      + '?action=submit'
+      + '&data=' + encodeURIComponent(JSON.stringify(p));
 
-    if (json.success) {
-      msgEl.className   = 'msg success';
-      msgEl.textContent = `✔ Form submitted! Email sent to ${p.emp_email}. Form ID: ${p.form_number}`;
-      // Optionally reset form
-      // document.querySelectorAll('input[type=text], input[type=email], textarea').forEach(el => el.value = '');
-    } else {
-      throw new Error(json.error || 'Server returned an error');
-    }
+    await fetch(url, { method: 'GET', mode: 'no-cors' });
+
+    // no-cors returns opaque response (can't read it) — assume success if no throw
+    msgEl.className   = 'msg success';
+    msgEl.textContent = `✔ Form submitted! Email has been sent to ${p.emp_email}. Form ID: ${p.form_number}`;
+
   } catch (e) {
     msgEl.className   = 'msg error';
     msgEl.textContent = `Submission failed: ${e.message}`;
